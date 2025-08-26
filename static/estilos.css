@@ -1,0 +1,23 @@
+/* estilos.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8; /* Color de fondo suave */
+  display: flex;
+  justify-content: center;   /* Centra horizontalmente */
+  align-items: center;       /* Centra verticalmente */
+  height: 100vh;             /* Ocupa toda la pantalla */
+  margin: 0;
+}
+
+.formulario {
+  background: #ffffff;       /* Fondo blanco del formulario */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  width: 400px;              /* Ancho fijo */
+  text-align: center;        /* Centrar contenido dentro */
+}
+
+h1, h2 {
+  color: #0f172a;
+}

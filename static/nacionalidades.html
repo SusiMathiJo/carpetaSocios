@@ -1,47 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<title>Gestión Nacionalidades</title>
-<style>
-  body { font-family: Arial, sans-serif; margin: 20px; background:#f6f8fa; }
-  .card { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); max-width: 900px; }
-  label { display:block; margin-top:10px; font-weight:600; }
-  input { width:100%; padding:8px; margin-top:6px; border-radius:6px; border:1px solid #ccc; }
-  .btn { padding:8px 12px; margin:6px 6px 6px 0; border:none; border-radius:6px; color:#fff; cursor:pointer; }
-  .add { background:#16a34a } .save { background:#0ea5e9 } .edit { background:#f59e0b }
-  .consult { background:#7c3aed } .cancel { background:#ef4444 } .exit { background:#475569 }
-  table { width:100%; border-collapse:collapse; margin-top:14px; }
-  th, td { padding:8px; border-bottom:1px solid #eee; text-align:left; font-size:14px; }
-  th { background:#0f172a; color:#fff; }
-  tr:hover { background:#f1f5f9; cursor:pointer; }
-  #msg { margin-top:10px; color:#065f46; font-weight:600; }
-</style>
+  <meta charset="UTF-8">
+  <title>Formulario Nacionalidades</title>
+  <!-- Ant Design CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.24.8/antd.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f8fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .form-container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 700px;
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1677ff;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #d9d9d9;
+      border-radius: 6px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    table th {
+      background: #f0f0f0;
+    }
+  </style>
 </head>
 <body>
-  <div class="card">
-    <h2>Gestion Nacionalidades</h2>
 
-    <label>Nombre País:</label>
-    <input id="nombrePais" type="text" />
+  <div class="form-container">
+    <h2>Formulario Nacionalidades</h2>
+    
+    <!-- Campos del formulario -->
+    <form>
+      <div class="form-group">
+        <label for="nombrePais">Nombre del País</label>
+        <input type="text" id="nombrePais" name="nombrePais" placeholder="Ej: Paraguay">
+      </div>
 
-    <label>Nombre Nacionalidad:</label>
-    <input id="nombreNacionalidad" type="text" />
+      <div class="form-group">
+        <label for="nombreNacionalidad">Nacionalidad</label>
+        <input type="text" id="nombreNacionalidad" name="nombreNacionalidad" placeholder="Ej: Paraguaya">
+      </div>
 
-    <div style="margin-top:10px;">
-      <button class="btn add" id="btnAgregar">Agregar</button>
-      <button class="btn save" id="btnGrabar">Grabar</button>
-      <button class="btn edit" id="btnModificar">Modificar</button>
-      <button class="btn consult" id="btnConsultar">Consultar</button>
-      <button class="btn cancel" id="btnCancelar">Cancelar</button>
-      <button class="btn exit" id="btnSalir">Salir</button>
-    </div>
+      <!-- Botones con Ant Design -->
+      <div class="buttons">
+        <button type="button" class="ant-btn ant-btn-primary">Agregar</button>
+        <button type="button" class="ant-btn">Modificar</button>
+        <button type="submit" class="ant-btn ant-btn-success">Grabar</button>
+        <button type="reset" class="ant-btn ant-btn-danger">Cancelar</button>
+        <button type="button" class="ant-btn ant-btn-default">Salir</button>
+      </div>
+    </form>
 
-    <div id="msg"></div>
-  </div>
-
-  <div class="card" style="margin-top:14px;">
-    <h3>Listado de Paises y Nacionalidades</h3>
+    <!-- Grilla de datos -->
     <table>
       <thead>
         <tr>
@@ -49,127 +98,24 @@
           <th>País</th>
           <th>Nacionalidad</th>
           <th>Usuario</th>
-          <th>WS</th>
-          <th>Tiempo</th>
         </tr>
       </thead>
-      <tbody id="tbody"></tbody>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Paraguay</td>
+          <td>Paraguaya</td>
+          <td>susana</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Argentina</td>
+          <td>Argentina</td>
+          <td>admin</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
-<script>
-const API_BASE = "";
-let modo = null; // "agregar" o "modificar"
-let codigoSeleccionado = null;
-
-// Mostrar mensajes
-function showMsg(text, isError=false) {
-  const el = document.getElementById("msg");
-  el.style.color = isError ? "#b91c1c" : "#065f46";
-  el.textContent = text;
-  setTimeout(()=>{ if(!isError) el.textContent=""; }, 3500);
-}
-
-// Limpiar solo inputs, sin tocar codigoSeleccionado
-function limpiarCampos() {
-  document.getElementById("nombrePais").value = "";
-  document.getElementById("nombreNacionalidad").value = "";
-  modo = null;
-  showMsg("");
-}
-
-// Limpiar todo (inputs + selección)
-function limpiarTodo() {
-  limpiarCampos();
-  codigoSeleccionado = null;
-}
-
-// Consultar y cargar grilla
-async function consultar() {
-  try {
-    const res = await fetch(API_BASE + "/nacionalidades");
-    const data = await res.json();
-    const tbody = document.getElementById("tbody");
-    tbody.innerHTML = "";
-    data.forEach(r => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${r.CodigoPais}</td>
-                      <td>${r.NombrePais}</td>
-                      <td>${r.NombreNacionalidad}</td>
-                      <td>${r.Usuario ?? ""}</td>
-                      <td>${r.WS ?? ""}</td>
-                      <td>${r.Tiempo ?? ""}</td>`;
-      tr.onclick = () => {
-        codigoSeleccionado = r.CodigoPais;
-        document.getElementById("nombrePais").value = r.NombrePais;
-        document.getElementById("nombreNacionalidad").value = r.NombreNacionalidad;
-        showMsg(`Fila ${r.CodigoPais} seleccionada`);
-      };
-      tbody.appendChild(tr);
-    });
-    showMsg("Listado actualizado");
-  } catch (e) {
-    showMsg("Error al consultar: " + e.message, true);
-  }
-}
-
-// Botones
-document.getElementById("btnAgregar").onclick = () => {
-  limpiarCampos();
-  modo = "agregar";
-  showMsg("Modo AGREGAR: complete los campos y presione GRABAR");
-};
-
-document.getElementById("btnModificar").onclick = () => {
-  if (!codigoSeleccionado) return showMsg("Seleccione una fila de la grilla primero", true);
-  modo = "modificar";
-  showMsg("Modo MODIFICAR: edite campos y presione GRABAR");
-};
-
-document.getElementById("btnGrabar").onclick = async () => {
-  const nombrepais = document.getElementById("nombrePais").value.trim();
-  const nombrenacionalidad = document.getElementById("nombreNacionalidad").value.trim();
-  if (!nombrepais || !nombrenacionalidad) return showMsg("Complete ambos campos", true);
-
-  try {
-    if (modo === "agregar") {
-      const res = await fetch(API_BASE + "/nacionalidades", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ nombrepais, nombrenacionalidad })
-      });
-      const j = await res.json();
-      if (!res.ok) return showMsg("Error al grabar: " + (j.detail || JSON.stringify(j)), true);
-      showMsg("Grabado OK (Código: " + (j.CodigoPais || "") + ")");
-      limpiarCampos();
-    } else if (modo === "modificar") {
-      if (!codigoSeleccionado) return showMsg("Seleccione registro para modificar", true);
-      const res = await fetch(API_BASE + "/nacionalidades/" + codigoSeleccionado, {
-        method: "PUT",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({ nombrepais, nombrenacionalidad })
-      });
-      const j = await res.json();
-      if (!res.ok) return showMsg("Error al modificar: " + (j.detail || JSON.stringify(j)), true);
-      showMsg("Modificado correctamente");
-      limpiarCampos();
-    } else {
-      return showMsg("Primero pulse AGREGAR o MODIFICAR", true);
-    }
-
-    // Refrescar grilla
-    await consultar();
-  } catch (e) {
-    showMsg("Error al grabar: " + e.message, true);
-  }
-};
-
-document.getElementById("btnConsultar").onclick = consultar;
-document.getElementById("btnCancelar").onclick = () => { limpiarTodo(); showMsg("Operación cancelada"); };
-document.getElementById("btnSalir").onclick = () => { showMsg("Cierre la ventana del navegador para salir"); };
-
-// Carga inicial
-consultar();
-</script>
 </body>
 </html>

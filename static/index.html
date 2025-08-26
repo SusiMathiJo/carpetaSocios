@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Módulo Socios</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; background:#f6f8fa; }
+nav { background:#0f172a; padding:10px; color:#fff; border-radius:6px; }
+nav ul { list-style:none; padding:0; margin:0; display:flex; }
+nav ul li { margin-right:20px; position:relative; cursor:pointer; }
+nav ul li ul { display:none; position:absolute; top:100%; left:0; background:#1e293b; padding:10px; border-radius:6px; }
+nav ul li:hover ul { display:block; }
+nav ul li ul li { margin:0; padding:5px 10px; color:#fff; }
+nav ul li ul li:hover { background:#374151; }
+iframe { width:100%; height:600px; margin-top:20px; border:1px solid #ccc; border-radius:6px; }
+</style>
+</head>
+<body>
+
+<h1>Módulo Socios</h1>
+<nav>
+  <ul>
+    <li>Archivos
+      <ul>
+        <li onclick="abrirFormulario('nacionalidades.html')">Nacionalidades</li>
+        <li onclick="abrirFormulario('localidades.html')">Localidades</li> <!-- Nuevo submenu -->
+        <!-- Podés agregar más submenús aquí -->
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<!-- Aquí se abrirá el formulario seleccionado -->
+<iframe id="iframeForm" src=""></iframe>
+
+<script>
+function abrirFormulario(url) {
+  document.getElementById("iframeForm").src = url;
+}
+</script>
+
+</body>
+</html>
